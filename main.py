@@ -1,14 +1,18 @@
+from enum import Enum
 from fastapi import FastAPI
+
+class ModelName(str, Enum):
+    alexnet = "alexnet"
+    resnet = "resnet"
+    lenet = "lenet"
 
 app = FastAPI()
 
-test_gay = FastAPI()
+@app.get("/users/me")
+async def read_current_user():
+    return {"user": "current user"}
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-@app.get("/items/{item_id}")
-async def read_item(item_id: float):
-    return {"item_id": item_id}
+@app.get("/users/{user_id}")
+async def read_user_id(user_id: str):
+    return {"user": user_id}
 
